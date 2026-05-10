@@ -1,0 +1,200 @@
+<div class="page-container">
+  <p-toast position="top-right"></p-toast>
+
+  <!-- Loading overlay -->
+  <div class="loading-overlay" *ngIf="calculatingEstimate || confirmingOrder">
+    <div class="loading-content">
+      <p-progressSpinner strokeWidth="4"></p-progressSpinner>
+      <p>{{ calculatingEstimate ? 'Calculando rota...' : 'Confirmando pedido...' }}</p>
+    </div>
+  </div>
+
+  <div class="page-top animate-fade-up">
+    <button class="back-btn" (click)="goBack()">
+      <i class="pi pi-arrow-left"></i> Voltar
+    </button>
+    <div>
+      <h1 class="page-title"><i class="pi pi-shopping-cart"></i> Criar Pedido</h1>
+      <p class="page-subtitle">Preencha os endereços e calcule o valor antes de confirmar</p>
+    </div>
+  </div>
+
+  <div class="order-layout">
+    <!-- Form Card -->
+    <p-card styleClass="order-form-card animate-fade-up">
+      <form [formGroup]="orderForm">
+
+        <!-- Step 1: Addresses -->
+        <div class="step-header">
+          <span class="step-badge">1</span>
+          <h3>Endereços de Coleta e Entrega</h3>
+        </div>
+
+        <div class="form-group">
+          <label for="pickupAddress">
+            Endereço de Coleta <span class="required">*</span>
+          </label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-map-marker pickup-color"></i>
+            <input
+              id="pickupAddress"
+              type="text"
+              pInputText
+              formControlName="pickupAddress"
+              placeholder="Ex: Av. Paulista, 1000, Bela Vista, São Paulo - SP, 01310-100"
+              class="full-width"
+            />
+          </span>
+          <small class="error-message" *ngIf="isFieldInvalid('pickupAddress')">
+            <i class="pi pi-exclamation-circle"></i>
+            Endereço de coleta é obrigatório (mín. 10 caracteres)
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="deliveryAddress">
+            Endereço de Entrega <span class="required">*</span>
+          </label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-map-marker delivery-color"></i>
+            <input
+              id="deliveryAddress"
+              type="text"
+              pInputText
+              formControlName="deliveryAddress"
+              placeholder="Ex: Rua Augusta, 500, Consolação, São Paulo - SP, 01305-000"
+              class="full-width"
+            />
+          </span>
+          <small class="error-message" *ngIf="isFieldInvalid('deliveryAddress')">
+            <i class="pi pi-exclamation-circle"></i>
+            Endereço de entrega é obrigatório (mín. 10 caracteres)
+          </small>
+        </div>
+
+        <!-- Calculate Button -->
+        <p-button
+          id="btn-calculate"
+          type="button"
+          label="Calcular Entrega"
+          icon="pi pi-calculator"
+          styleClass="p-button-outlined calculate-btn"
+          (onClick)="calculateEstimate()"
+          [disabled]="calculatingEstimate"
+          [loading]="calculatingEstimate"
+        ></p-button>
+
+        <!-- Estimate Result (read-only) -->
+        <div class="estimate-card" *ngIf="estimateCalculated && estimate">
+          <div class="estimate-header">
+            <i class="pi pi-check-circle success-icon"></i>
+            <h4>Estimativa Calculada</h4>
+          </div>
+          <div class="estimate-metrics">
+            <div class="metric">
+              <span class="metric-icon">📍</span>
+              <div>
+                <small>Distância</small>
+                <strong>{{ estimate.distanceKm | number:'1.1-1' }} km</strong>
+              </div>
+            </div>
+            <div class="metric">
+              <span class="metric-icon">⏱️</span>
+              <div>
+                <small>Tempo Estimado</small>
+                <strong>{{ estimate.estimatedTimeMinutes }} min</strong>
+              </div>
+            </div>
+            <div class="metric value-metric">
+              <span class="metric-icon">💰</span>
+              <div>
+                <small>Valor da Entrega</small>
+                <strong class="estimate-value">{{ formatCurrency(estimate.estimatedValue) }}</strong>
+              </div>
+            </div>
+          </div>
+          <p class="estimate-note">
+            <i class="pi pi-lock"></i>
+            Valor calculado automaticamente pelo sistema. Não pode ser alterado.
+          </p>
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Step 2: Description -->
+        <div class="step-header">
+          <span class="step-badge">2</span>
+          <h3>Descrição dos Itens</h3>
+        </div>
+
+        <div class="form-group">
+          <label for="itemDescription">
+            Itens do Pedido <span class="required">*</span>
+          </label>
+          <textarea
+            id="itemDescription"
+            pInputTextarea
+            formControlName="itemDescription"
+            placeholder="Descreva os itens a serem entregues. Ex: 2x Pizza Margherita, 1x Refrigerante 2L"
+            class="full-width p-textarea"
+            rows="4"
+          ></textarea>
+          <small class="error-message" *ngIf="isFieldInvalid('itemDescription')">
+            <i class="pi pi-exclamation-circle"></i>
+            Descrição dos itens é obrigatória
+          </small>
+        </div>
+
+        <!-- Confirm Button -->
+        <div class="confirm-section">
+          <p-button
+            id="btn-confirm-order"
+            type="button"
+            label="Confirmar Pedido"
+            icon="pi pi-check"
+            styleClass="p-button-primary confirm-btn"
+            (onClick)="confirmOrder()"
+            [disabled]="!estimateCalculated || confirmingOrder"
+            [loading]="confirmingOrder"
+          ></p-button>
+          <small *ngIf="!estimateCalculated" class="hint-text">
+            <i class="pi pi-info-circle"></i>
+            Calcule a estimativa antes de confirmar
+          </small>
+        </div>
+
+      </form>
+    </p-card>
+
+    <!-- Info Card -->
+    <div class="info-sidebar">
+      <p-card styleClass="info-card animate-fade-up">
+        <h4><i class="pi pi-info-circle"></i> Como funciona</h4>
+        <ol class="steps-list">
+          <li>Informe o endereço completo de coleta</li>
+          <li>Informe o endereço completo de entrega</li>
+          <li>Clique em <strong>"Calcular Entrega"</strong></li>
+          <li>O sistema calcula distância, tempo e valor automaticamente</li>
+          <li>Descreva os itens do pedido</li>
+          <li>Confirme o pedido</li>
+        </ol>
+        <p-divider></p-divider>
+        <div class="pricing-info">
+          <h5>Tabela de Preços</h5>
+          <div class="price-row">
+            <span>Taxa base</span>
+            <strong>R$ 5,00</strong>
+          </div>
+          <div class="price-row">
+            <span>Por quilômetro</span>
+            <strong>R$ 2,50/km</strong>
+          </div>
+          <div class="price-row">
+            <span>Distância máxima</span>
+            <strong>30 km</strong>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

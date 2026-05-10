@@ -1,0 +1,101 @@
+<div class="page-container">
+  <p-toast position="top-right"></p-toast>
+
+  <div class="page-top animate-fade-up">
+    <button class="back-btn" (click)="goBack()">
+      <i class="pi pi-arrow-left"></i> Voltar
+    </button>
+    <div class="page-title-section">
+      <h1 class="page-title"><i class="pi pi-list"></i> Meus Pedidos</h1>
+      <p class="page-subtitle">Histórico completo das suas entregas</p>
+    </div>
+    <p-button
+      id="btn-new-order"
+      label="Novo Pedido"
+      icon="pi pi-plus"
+      styleClass="p-button-primary"
+      (onClick)="goToCreateOrder()"
+    ></p-button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="loading">
+    <p-progressSpinner strokeWidth="4"></p-progressSpinner>
+    <p>Carregando pedidos...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state animate-fade-up" *ngIf="!loading && orders.length === 0">
+    <i class="pi pi-inbox"></i>
+    <h3>Nenhum pedido encontrado</h3>
+    <p>Você ainda não realizou nenhuma entrega.</p>
+    <p-button
+      label="Fazer Primeiro Pedido"
+      icon="pi pi-shopping-cart"
+      styleClass="p-button-primary"
+      (onClick)="goToCreateOrder()"
+    ></p-button>
+  </div>
+
+  <!-- Orders Table -->
+  <p-card *ngIf="!loading && orders.length > 0" styleClass="animate-fade-up">
+    <p-table
+      [value]="orders"
+      [loading]="loading"
+      styleClass="p-datatable-gridlines"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Data/Hora</th>
+          <th>Coleta</th>
+          <th>Entrega</th>
+          <th>Descrição</th>
+          <th>Distância</th>
+          <th>Tempo Est.</th>
+          <th>Valor</th>
+          <th>Status</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td class="date-cell">
+            <span class="date">{{ order.createdAt | date:'dd/MM/yyyy' }}</span>
+            <span class="time">{{ order.createdAt | date:'HH:mm' }}</span>
+          </td>
+          <td class="address-cell" [title]="order.pickupAddress">
+            <i class="pi pi-map-marker pickup-icon"></i>
+            {{ order.pickupAddress | slice:0:35 }}{{ order.pickupAddress.length > 35 ? '...' : '' }}
+          </td>
+          <td class="address-cell" [title]="order.deliveryAddress">
+            <i class="pi pi-map-marker delivery-icon"></i>
+            {{ order.deliveryAddress | slice:0:35 }}{{ order.deliveryAddress.length > 35 ? '...' : '' }}
+          </td>
+          <td class="desc-cell">{{ order.itemDescription | slice:0:30 }}{{ order.itemDescription.length > 30 ? '...' : '' }}</td>
+          <td class="metric-cell">{{ order.distanceKm | number:'1.1-1' }} km</td>
+          <td class="metric-cell">{{ order.estimatedTimeMinutes }} min</td>
+          <td class="value-cell">
+            <strong>{{ formatCurrency(order.estimatedValue) }}</strong>
+          </td>
+          <td>
+            <p-tag
+              [value]="getStatusLabel(order.status)"
+              [severity]="getStatusSeverity(order.status)"
+            ></p-tag>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- Paginator -->
+    <p-paginator
+      *ngIf="totalRecords > rows"
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [first]="first"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      (onPageChange)="onPageChange($event)"
+      styleClass="mt-3"
+    ></p-paginator>
+  </p-card>
+</div>

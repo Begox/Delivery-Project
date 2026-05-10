@@ -1,0 +1,92 @@
+.login-wrapper {
+  width: 100%;
+  max-width: 440px;
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .brand-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .brand-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+
+    span {
+      color: var(--primary);
+    }
+  }
+
+  .brand-subtitle {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+:host ::ng-deep .login-card {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-lg) !important;
+
+  .p-card-body {
+    padding: 2rem !important;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .full-width {
+    flex: 1;
+
+    input {
+      padding-right: 3rem !important;
+    }
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+}
+
+.login-btn {
+  margin-top: 0.5rem;
+  height: 44px;
+  font-size: 1rem !important;
+}
+
+.secondary-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}

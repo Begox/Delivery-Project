@@ -1,0 +1,104 @@
+<div class="page-center">
+  <p-toast position="top-right"></p-toast>
+
+  <div class="login-wrapper animate-fade-up">
+    <!-- Brand Header -->
+    <div class="login-brand">
+      <span class="brand-emoji">🛵</span>
+      <h1 class="brand-title">Delivery <span>PGE</span></h1>
+      <p class="brand-subtitle">Entre na sua conta para continuar</p>
+    </div>
+
+    <!-- Login Card -->
+    <p-card styleClass="login-card">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <!-- Identifier Field -->
+        <div class="form-group">
+          <label for="identifier">
+            CPF ou Email <span class="required">*</span>
+          </label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-user"></i>
+            <input
+              id="identifier"
+              type="text"
+              pInputText
+              formControlName="identifier"
+              placeholder="Digite seu CPF ou Email"
+              class="full-width"
+            />
+          </span>
+          <small class="error-message" *ngIf="isFieldInvalid('identifier')">
+            <i class="pi pi-exclamation-circle"></i>
+            CPF ou email é obrigatório
+          </small>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">
+            Senha <span class="required">*</span>
+          </label>
+          <div class="password-wrapper">
+            <span class="p-input-icon-left full-width">
+              <i class="pi pi-lock"></i>
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                pInputText
+                formControlName="password"
+                placeholder="Digite sua senha"
+                class="full-width"
+              />
+            </span>
+            <button
+              type="button"
+              class="toggle-password"
+              (click)="showPassword = !showPassword"
+            >
+              <i [class]="showPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+            </button>
+          </div>
+          <small class="error-message" *ngIf="isFieldInvalid('password')">
+            <i class="pi pi-exclamation-circle"></i>
+            Senha é obrigatória
+          </small>
+        </div>
+
+        <!-- Submit Button -->
+        <p-button
+          id="btn-login"
+          type="submit"
+          label="Entrar"
+          icon="pi pi-sign-in"
+          [loading]="loading"
+          styleClass="p-button-primary full-width login-btn"
+          [disabled]="loading"
+        ></p-button>
+
+        <p-divider></p-divider>
+
+        <!-- Secondary Actions -->
+        <div class="secondary-actions">
+          <p-button
+            id="btn-forgot"
+            type="button"
+            label="Esqueci minha senha"
+            styleClass="p-button-text p-button-sm"
+            (onClick)="forgotPassword()"
+          ></p-button>
+          <p-button
+            id="btn-register"
+            type="button"
+            label="Cadastre-se"
+            icon="pi pi-user-plus"
+            styleClass="p-button-outlined full-width"
+            (onClick)="goToRegister()"
+          ></p-button>
+        </div>
+
+      </form>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<nav class="header-nav">
+  <div class="header-brand" (click)="router.navigate(['/'])">
+    <span class="brand-icon">🛵</span>
+    <span class="brand-name">Delivery <span class="brand-highlight">PGE</span></span>
+  </div>
+
+  <p-menubar [model]="items" styleClass="custom-menubar">
+    <ng-template pTemplate="end">
+      <ng-container *ngIf="authService.getCurrentUser() as user">
+        <div class="user-info">
+          <span class="pi pi-user-circle"></span>
+          <span class="user-name">{{ user.fullName.split(' ')[0] }}</span>
+        </div>
+      </ng-container>
+    </ng-template>
+  </p-menubar>
+</nav>

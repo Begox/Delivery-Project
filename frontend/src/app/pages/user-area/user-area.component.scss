@@ -1,0 +1,141 @@
+.user-area-header {
+  margin-bottom: 2.5rem;
+}
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .pi {
+      font-size: 1.75rem;
+      color: white;
+    }
+  }
+
+  .welcome-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .welcome-subtitle {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.dash-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary);
+
+    .dash-arrow {
+      color: var(--primary);
+      transform: translateX(4px);
+    }
+  }
+
+  &.danger:hover {
+    border-color: var(--error);
+
+    .dash-arrow {
+      color: var(--error);
+    }
+  }
+}
+
+.dash-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .pi {
+    font-size: 1.5rem;
+  }
+
+  &.primary {
+    background: rgba(99, 102, 241, 0.15);
+    .pi { color: var(--primary); }
+  }
+
+  &.secondary {
+    background: rgba(245, 158, 11, 0.15);
+    .pi { color: var(--secondary); }
+  }
+
+  &.warning {
+    background: rgba(99, 102, 241, 0.15);
+    .pi { color: #818cf8; }
+  }
+
+  &.error {
+    background: rgba(239, 68, 68, 0.15);
+    .pi { color: var(--error); }
+  }
+}
+
+.dash-content {
+  flex: 1;
+
+  h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+}
+
+.dash-arrow {
+  color: var(--border);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

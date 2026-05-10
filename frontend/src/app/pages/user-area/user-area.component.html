@@ -1,0 +1,65 @@
+<div class="page-container">
+  <div class="user-area-header animate-fade-up">
+    <div class="welcome-section">
+      <div class="avatar">
+        <i class="pi pi-user"></i>
+      </div>
+      <div class="welcome-text">
+        <h1 class="welcome-title">Olá, {{ (currentUser?.fullName || 'Usuário').split(' ')[0] }}! 👋</h1>
+        <p class="welcome-subtitle">{{ currentUser?.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid animate-fade-up">
+
+    <!-- Realizar Pedido -->
+    <div class="dash-card" (click)="goToCreateOrder()" id="btn-create-order">
+      <div class="dash-icon primary">
+        <i class="pi pi-shopping-cart"></i>
+      </div>
+      <div class="dash-content">
+        <h3>Realizar Pedido</h3>
+        <p>Solicite uma entrega com cálculo automático de valor</p>
+      </div>
+      <i class="pi pi-chevron-right dash-arrow"></i>
+    </div>
+
+    <!-- Meus Pedidos -->
+    <div class="dash-card" (click)="goToMyOrders()" id="btn-my-orders">
+      <div class="dash-icon secondary">
+        <i class="pi pi-list"></i>
+      </div>
+      <div class="dash-content">
+        <h3>Meus Pedidos</h3>
+        <p>Acompanhe o histórico e status das suas entregas</p>
+      </div>
+      <i class="pi pi-chevron-right dash-arrow"></i>
+    </div>
+
+    <!-- Alterar Dados -->
+    <div class="dash-card" (click)="goToUpdateUser()" id="btn-update-user">
+      <div class="dash-icon warning">
+        <i class="pi pi-user-edit"></i>
+      </div>
+      <div class="dash-content">
+        <h3>Alterar Dados Cadastrais</h3>
+        <p>Atualize telefone, endereço e local de referência</p>
+      </div>
+      <i class="pi pi-chevron-right dash-arrow"></i>
+    </div>
+
+    <!-- Logout -->
+    <div class="dash-card danger" (click)="logout()" id="btn-logout">
+      <div class="dash-icon error">
+        <i class="pi pi-sign-out"></i>
+      </div>
+      <div class="dash-content">
+        <h3>Sair</h3>
+        <p>Encerrar sessão e voltar ao login</p>
+      </div>
+      <i class="pi pi-chevron-right dash-arrow"></i>
+    </div>
+
+  </div>
+</div>

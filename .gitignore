@@ -1,0 +1,60 @@
+# =============================
+# macOS
+# =============================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# =============================
+# IDEs e Editores
+# =============================
+.idea/
+*.iml
+*.iws
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# =============================
+# Backend — Java / Maven
+# =============================
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+!backend/.mvn/wrapper/maven-wrapper.properties
+backend/*.class
+backend/*.jar
+backend/*.war
+backend/*.ear
+
+# =============================
+# Frontend — Node.js / Angular
+# =============================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.angular/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.npm
+frontend/.env
+frontend/.env.*
+
+# =============================
+# Logs
+# =============================
+*.log
+logs/
+
+# =============================
+# Arquivos do sistema
+# =============================
+Thumbs.db
+ehthumbs.db
+Desktop.ini

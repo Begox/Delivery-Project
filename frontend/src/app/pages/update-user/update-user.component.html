@@ -1,0 +1,102 @@
+<div class="page-container">
+  <p-toast position="top-right"></p-toast>
+
+  <div class="page-top animate-fade-up">
+    <button class="back-btn" (click)="goBack()">
+      <i class="pi pi-arrow-left"></i> Voltar
+    </button>
+    <div>
+      <h1 class="page-title"><i class="pi pi-user-edit"></i> Alterar Dados Cadastrais</h1>
+      <p class="page-subtitle">Atualize suas informações de contato e endereço</p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="loadingProfile">
+    <p-progressSpinner strokeWidth="4"></p-progressSpinner>
+  </div>
+
+  <p-card *ngIf="!loadingProfile" styleClass="animate-fade-up update-card">
+    <!-- Current Data Info -->
+    <div class="current-info" *ngIf="currentProfile">
+      <div class="info-chips">
+        <p-chip [label]="currentProfile.fullName" icon="pi pi-user" styleClass="info-chip"></p-chip>
+        <p-chip [label]="currentProfile.email" icon="pi pi-envelope" styleClass="info-chip"></p-chip>
+        <p-chip [label]="currentProfile.cpf" icon="pi pi-id-card" styleClass="info-chip"></p-chip>
+      </div>
+      <small class="locked-hint">
+        <i class="pi pi-lock"></i> Nome, CPF e Email não podem ser alterados
+      </small>
+    </div>
+
+    <p-divider></p-divider>
+
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="phone">Telefone</label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-phone"></i>
+            <input id="phone" type="text" pInputText formControlName="phone"
+              placeholder="(11) 99999-9999" class="full-width" />
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="secondaryPhone">Telefone Secundário</label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-phone"></i>
+            <input id="secondaryPhone" type="text" pInputText formControlName="secondaryPhone"
+              placeholder="(11) 98888-8888" class="full-width" />
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="cep">CEP</label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-map-marker"></i>
+            <input id="cep" type="text" pInputText formControlName="cep"
+              placeholder="00000-000" class="full-width" />
+          </span>
+        </div>
+
+        <div class="form-group full-col">
+          <label for="address">Endereço</label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-home"></i>
+            <input id="address" type="text" pInputText formControlName="address"
+              placeholder="Rua, número, bairro, cidade - Estado" class="full-width" />
+          </span>
+        </div>
+
+        <div class="form-group full-col">
+          <label for="referencePoint">Local de Referência</label>
+          <span class="p-input-icon-left full-width">
+            <i class="pi pi-map"></i>
+            <input id="referencePoint" type="text" pInputText formControlName="referencePoint"
+              placeholder="Ex: Próximo ao metrô" class="full-width" />
+          </span>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          id="btn-save"
+          type="submit"
+          label="Salvar Alterações"
+          icon="pi pi-save"
+          [loading]="loading"
+          styleClass="p-button-primary"
+        ></p-button>
+        <p-button
+          type="button"
+          label="Cancelar"
+          styleClass="p-button-outlined"
+          (onClick)="goBack()"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

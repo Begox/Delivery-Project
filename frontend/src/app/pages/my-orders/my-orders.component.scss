@@ -1,0 +1,127 @@
+.page-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.08);
+  }
+}
+
+.page-title-section {
+  flex: 1;
+
+  .page-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    .pi { color: var(--primary); }
+  }
+
+  .page-subtitle {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+
+  .pi {
+    font-size: 3rem;
+    color: var(--border);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem;
+  }
+}
+
+.date-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .date {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+}
+
+.address-cell {
+  font-size: 0.8rem;
+  max-width: 200px;
+
+  .pi {
+    margin-right: 4px;
+    font-size: 0.7rem;
+  }
+
+  .pickup-icon { color: var(--primary); }
+  .delivery-icon { color: var(--success); }
+}
+
+.desc-cell {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  max-width: 150px;
+}
+
+.metric-cell {
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.value-cell {
+  color: var(--success);
+  font-size: 0.95rem;
+}
