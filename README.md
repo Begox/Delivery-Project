@@ -629,7 +629,6 @@ Exemplos válidos: Senha@123 · Admin#456
 
 | Documento | Descrição |
 |---|---|
-| [`GUIA_EDUCATIVO.md`](./GUIA_EDUCATIVO.md) | Explicação técnica detalhada de toda a arquitetura, serviços, JWT, DTOs, testes e Angular |
 | [`DOCUMENTACAO_AVALIADORES.md`](./DOCUMENTACAO_AVALIADORES.md) | Documentação formal para avaliadores — justificativas técnicas, critérios de avaliação atendidos |
 | [Swagger UI](http://localhost:8080/swagger-ui.html) | Documentação interativa da API (requer backend rodando) |
 
